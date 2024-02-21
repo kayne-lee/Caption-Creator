@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import SparklesIcons from "./components/SparklesIcon";
+import SparklesIcons from "../components/SparklesIcon";
 import "./globals.css";
 import Link from "next/link";
 
