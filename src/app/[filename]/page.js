@@ -2,8 +2,8 @@
 import { clearTranscriptionItems } from "@/libs/awsTranscriptionHelpers";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TranscriptionItem from "../components/TranscriptionItem";
-import SparklesIcons from "../components/SparklesIcon";
+import ResultVideo from "../components/ResultVideo";
+import TranscriptionEditor from "../components/TranscriptionEditor";
 
 
 export default function FilePage({params}) {
@@ -30,6 +30,7 @@ export default function FilePage({params}) {
             }
         });
     }
+
     if (isTranscribing) {
         return (
             <div>Transcribing your video...</div>
@@ -47,29 +48,11 @@ export default function FilePage({params}) {
             <div className="grid grid-cols-2 gap-16">
                 <div className="">
                     <h2 className="text-2xl mb-4 text-white/80">Transcription</h2>
-                    <div className="grid grid-cols-3 gap-1 sticky top-0 bg-blue-800/80 p-2 rounded-md">
-                        <div>From</div>
-                        <div>End</div>
-                        <div>Content</div>
-                    </div>
-                    {awsTranscriptionItems.length > 0 && awsTranscriptionItems.map(item => (
-                        <TranscriptionItem item={item} />
-                ))}
+                    <TranscriptionEditor awsTranscriptionItems={awsTranscriptionItems} setAwsTranscriptionItems={setAwsTranscriptionItems} />
                 </div>
                 <div>
                     <h2 className="text-2xl mb-4 text-white/80">Result</h2>
-                    <div className="mb-4 ">
-                        <button className="inline-flex gap-2 bg-green-600 py-2 px-6 rounded-full cursor-pointer">
-                            <SparklesIcons />
-                            <span>Apply captions</span>
-                        </button>
-                    </div>
-                        <div className="rounded-xl overflow-hidden">
-                            <video 
-                                controls
-                                src={"https://caption-creator.s3.amazonaws.com/"+filename}
-                            ></video>
-                        </div>
+                    <ResultVideo filename={filename} />
                 </div>
             </div>
             
